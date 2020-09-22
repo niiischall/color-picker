@@ -4,7 +4,7 @@
     "slug": "Color-Picker",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/new-icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,8 +19,14 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "com.colorPicker.colorPickerApp",
+      "versionCode": 1
+    },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Find out how good you are with RGB colour values with this fun, little mobile game built with React Native. ",
+    "githubUrl": "https://github.com/nischalNikit/color-picker"
   }
 }
