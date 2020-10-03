@@ -3,13 +3,14 @@ import {
     View, 
     ScrollView, 
     TouchableOpacity, 
-    Text,
     Alert, 
     StyleSheet 
 } from 'react-native';
 
-import Card   from '../components/Card';
-import Footer from '../components/Footer';
+import TextTitle from '../components/TextTitle';
+import TextBody  from '../components/TextBody';
+import Card      from '../components/Card';
+import Footer    from '../components/Footer';
 
 const GameScreen = (props) => {
     let [ chosenColor, changeChosenColor ] = useState(''); 
@@ -85,13 +86,13 @@ const GameScreen = (props) => {
         <View style = {styles.gameScreenContainer}>
             <Card style = {styles.gameScreenCard}>
                 <View style = {styles.gameScreenHeading}>
-                    <Text style = {styles.title}>
+                    <TextTitle style = {styles.title}>
                         Pick this color...
-                    </Text>
+                    </TextTitle>
                     <Card style = {styles.rgbCard}>
-                        <Text style = {styles.subtitle}>
+                        <TextBody style = {styles.subtitle}>
                             {chosenColor}
-                        </Text>
+                        </TextBody>
                     </Card>
                 </View>
             </Card>
@@ -115,7 +116,7 @@ const GameScreen = (props) => {
                             }}
                             onPress={() => onOptionClick(color)}
                         >
-                            <Text>&nbsp;</Text>
+                            <TextBody>&nbsp;</TextBody>
                         </TouchableOpacity>
                     )})
                 }
@@ -159,18 +160,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-around"
     },
     title: {
-        fontSize: 24,
-        fontFamily: 'roboto-bold',
-        textAlign: 'center',
         color: '#eee'
     },
     subtitle: {
         width: "100%",
-        height: '100%',
-        fontSize: 18,
-        textAlign: 'center',
-        fontFamily: 'roboto-bold',
-        color: '#eb2f64'
+        height: '100%'
     },
     colorContainer: {
         flex: 1,

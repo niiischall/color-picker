@@ -1,10 +1,11 @@
 import React from 'react';
 import { 
     View, 
-    Text, 
     StyleSheet 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+import TextTitle from './TextTitle';
 
 const Header = (props) => {
     return(
@@ -14,7 +15,11 @@ const Header = (props) => {
                 size = {38}
                 color = "#eb2f64"
             />
-            <Text style = {styles.headline}>Color Picker</Text>
+            <TextTitle 
+                style = {styles.headline}
+            >
+                Color Picker
+            </TextTitle>
         </View>
     )
 }
@@ -29,11 +34,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     headline: {
-        color: 'white',
-        fontSize: 32,
-        fontFamily: 'pacifico',
-        marginLeft: 10,
-        color: '#eb2f64'
+        marginLeft: 10
     }
 });
 

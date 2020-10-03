@@ -2,9 +2,10 @@ import React from 'react';
 import { 
     TouchableOpacity , 
     View,
-    Text,
     StyleSheet 
 } from 'react-native';
+
+import TextBody from './TextBody';
 
 const Button = (props) => {
     return(
@@ -14,12 +15,12 @@ const Button = (props) => {
             style         = {{...styles.button, ...props.style}}
         >
             <View style = {styles.buttonContainer}>
-                <Text style = {{
+                <TextBody style = {{
                     ...styles.buttonText,
                     color: props.color
                 }}>
                     {props.title}
-                </Text>
+                </TextBody>
             </View>
         </TouchableOpacity>
     )
@@ -43,8 +44,7 @@ const styles = StyleSheet.create({
         padding: 7.5
     },
     buttonText: {
-        fontFamily: 'open-sans--bold',
-        fontSize: 16
+        fontFamily: 'open-sans--bold'
     }
 })
 

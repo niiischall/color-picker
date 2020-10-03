@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
     View, 
-    Text,
     Alert, 
     Keyboard,
     TextInput,
@@ -12,6 +11,8 @@ import {
 import Card from '../components/Card';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import TextTitle from '../components/TextTitle';
+import TextBody from '../components/TextBody';
 
 
 const StartScreen = (props) => {
@@ -59,12 +60,12 @@ const StartScreen = (props) => {
     return(
         <View style = {styles.StartScreen}>
             <Card style = {styles.card}>
-                <Text style = {styles.heading}>
+                <TextTitle style = {styles.heading}>
                     Welcome To Color Picker!
-                </Text>
-                <Text style = {styles.subheading}>
+                </TextTitle>
+                <TextBody style = {styles.subheading}>
                     How many colors you want to pick from ?
-                </Text>
+                </TextBody>
                 <View style = {styles.inputContainer}>
                     <TextInput 
                         style           = {styles.input}
@@ -148,18 +149,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 20
     },
     heading:{
-        marginTop: 10,
-        fontSize: 26,
-        fontFamily: 'pacifico',
-        color: '#eb2f64'
+        marginTop: 10
     },
     subheading: {
         padding: 10,
-        marginTop: 16,
-        color: '#eb2f64',
-        fontFamily: 'roboto-bold',
-        fontSize: 17,
-        textAlign: 'center'
+        marginTop: 16
     },
     inputContainer:{
         width: '100%',

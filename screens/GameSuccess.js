@@ -1,11 +1,12 @@
 import React from 'react';
 import { 
     View, 
-    Text, 
     Image, 
     StyleSheet 
 } from 'react-native';
 
+import TextTitle from '../components/TextTitle';
+import TextBody from  '../components/TextBody';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 
@@ -14,17 +15,17 @@ const GameSuccess = (props) => {
         <View style = {styles.FinishScreen}>
             <Card style = {styles.successCard}>
                 <View style = {styles.Header}>
-                    <Text style = {styles.heading}>
+                    <TextTitle>
                         You Picked the Right Color!
-                    </Text>
+                    </TextTitle>
                 </View>
                 <Card style = {{
                     ...styles.ColorHeaderCard,
                     backgroundColor: props.color
                 }}>
-                    <Text style = {styles.subheading}>
+                    <TextBody style = {styles.subheading}>
                         {props.color}
-                    </Text>
+                    </TextBody>
                 </Card>
             </Card>
 
@@ -36,9 +37,9 @@ const GameSuccess = (props) => {
                 />
             </Card>
             <Card style = {styles.nextGameCard}>
-                <Text style = {styles.nextGameSubheading}>
+                <TextBody style = {styles.nextGameSubheading}>
                     Wanna Play Again ?
-                </Text>
+                </TextBody>
             </Card>
             <Footer 
                 title = "RESTART GAME"
@@ -62,24 +63,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         justifyContent: 'space-around'
     },
-    heading: {
-        fontSize: 26,
-        fontFamily: 'pacifico',
-        textAlign: "center",
-        color: "#eb2f64"
-    },
     subheading: {
-        fontSize: 18,
-        fontFamily: 'roboto-bold',
-        textAlign: "center",
         color: '#ffffff',
         padding: 10
     },
     nextGameSubheading: {
-        fontSize: 18,
-        fontFamily: 'roboto-bold',
-        textAlign: "center",
-        color: '#eb2f64',
         padding: 10
     },
     ColorHeaderCard: {

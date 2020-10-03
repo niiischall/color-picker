@@ -1,11 +1,12 @@
 import React from 'react';
 import {
     View, 
-    Text,
     Image,
     StyleSheet
 } from 'react-native';
 
+import TextTitle from '../components/TextTitle';
+import TextBody from '../components/TextBody';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 
@@ -14,12 +15,12 @@ const GameFailure = (props) => {
         <View style = {styles.FinishScreen}>
             <Card style = {styles.failureCard}>
                 <View style = {styles.Header}>
-                    <Text style = {styles.heading}>
+                    <TextTitle>
                         Sorry, You Lost.
-                    </Text>
-                    <Text style = {styles.subheader}>
+                    </TextTitle>
+                    <TextBody style = {styles.subheader}>
                         The Right Color Was...
-                    </Text>
+                    </TextBody>
                 </View>
             </Card>
             <Card 
@@ -28,9 +29,9 @@ const GameFailure = (props) => {
                     backgroundColor: props.color
                 }}
             >
-                <Text style = {styles.subheading}>
+                <TextBody style = {styles.subheading}>
                     {props.color}
-                </Text>
+                </TextBody>
             </Card>
             <Card style = {styles.ImageContainer}>
                 <Image 
@@ -40,9 +41,9 @@ const GameFailure = (props) => {
                 />
             </Card>
             <Card style = {styles.nextGameCard}>
-                <Text style = {styles.subheader}>
+                <TextBody style = {styles.subheader}>
                     Wanna Play Again ?
-                </Text>
+                </TextBody>
             </Card>
             <Footer 
                 title = "RESTART GAME"
@@ -73,23 +74,10 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         overflow: 'hidden'
     },
-    heading: {
-        fontSize: 26,
-        fontFamily: "pacifico",
-        textAlign: "center",
-        color: "#eb2f64"
-    },
     subheader: {
-        fontSize: 20,
-        fontFamily: "roboto-medium",
-        textAlign: "center",
-        color: "#eb2f64",
         padding: 10
     },
     subheading: {
-        fontSize: 20,
-        fontFamily: "roboto-medium",
-        textAlign: "center",
         color: "#fff",
         padding: 10
     },
