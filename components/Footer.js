@@ -4,7 +4,6 @@ import { View, Dimensions, StyleSheet } from 'react-native';
 import Button from './Button';
 
 const Footer = (props) => {
-
     const [screenHeight, changeScreenHeight] = useState(Dimensions.get('window').height);
 
     useEffect(() => {
@@ -17,8 +16,6 @@ const Footer = (props) => {
     const screenHeightHandler = () => {
         changeScreenHeight(Dimensions.get('window').height);
     }
-
-    console.log(screenHeight);
 
     return(
         <View style = {{
