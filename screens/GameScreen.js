@@ -4,7 +4,8 @@ import {
     ScrollView, 
     TouchableOpacity, 
     Alert, 
-    StyleSheet 
+    StyleSheet,
+    Dimensions 
 } from 'react-native';
 
 import TextTitle from '../components/TextTitle';
@@ -15,6 +16,17 @@ import Footer    from '../components/Footer';
 const GameScreen = (props) => {
     let [ chosenColor, changeChosenColor ] = useState(''); 
     let [ pallete, changePallete ]         = useState([]);
+    let [screenWidth, changeScreenWidth] 
+        = useState(Dimensions.get('window').width);
+        
+    useEffect(() => {
+        console.log(screenWidth);
+        Dimensions.addEventListener('change', 
+        screenWidthHandler);
+        return (() => {
+            Dimensions.removeEventListener('change', screenWidthHandler)
+        })
+    })
 
     useEffect(() => {
         fillPalletes();
@@ -82,14 +94,35 @@ const GameScreen = (props) => {
         fillPalletes();
     }
 
+    const screenWidthHandler = () => {
+        changeScreenWidth(Dimensions.get('window').width);
+    }
+
     return(
-        <View style = {styles.gameScreenContainer}>
-            <Card style = {styles.gameScreenCard}>
-                <View style = {styles.gameScreenHeading}>
+        <ScrollView 
+            contentContainerStyle = {styles.gameScreenContainer}
+            style = {styles.gameScreen}
+        >
+            <Card style = {{
+                ...styles.gameScreenCard,
+                height: screenWidth > 600 
+                    ? '15%' : '25%',
+            }}>
+                <View style = {{
+                    ...styles.gameScreenHeading,
+                    flexDirection: screenWidth > 600 
+                        ? 'row' : 'column',
+                }}>
                     <TextTitle style = {styles.title}>
                         Pick this color...
                     </TextTitle>
-                    <Card style = {styles.rgbCard}>
+                    <Card style = {{
+                        ...styles.rgbCard,
+                        width: screenWidth > 600 
+                            ? '45%' : '60%',
+                        height: screenWidth> 600 
+                            ? '100%' : '30%'
+                    }}>
                         <TextBody style = {styles.subtitle}>
                             {chosenColor}
                         </TextBody>
@@ -126,27 +159,26 @@ const GameScreen = (props) => {
                 title = "RESET GAME"
                 onClick = {resetGame}
             />
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     gameScreenContainer:{
         flex: 1,
+        alignItems: 'center'
+    },
+    gameScreen: {
         padding: 0,
-        alignItems: 'center',
         backgroundColor: '#eee'
     },
     gameScreenCard:{
         marginTop: 20,
         width: '85%',
-        height: '25%',
         backgroundColor: "#eb2f64",
         elevation: 20
     },
     rgbCard: {
-        width: '60%',
-        height: '30%',
         paddingTop: 5,
         overflow: "hidden",
         alignItems: "center",
@@ -157,7 +189,7 @@ const styles = StyleSheet.create({
         height: '100%',
         padding: 10,
         alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: 'space-around'
     },
     title: {
         color: '#eee'

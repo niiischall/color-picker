@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-    View, 
+    View,
+    ScrollView, 
     Alert, 
     Keyboard,
     TextInput,
     BackHandler, 
-    StyleSheet 
+    StyleSheet,
+    Dimensions 
 } from 'react-native';
 
 import Card from '../components/Card';
@@ -16,8 +18,18 @@ import TextBody from '../components/TextBody';
 
 
 const StartScreen = (props) => {
-    const [ inputValue, changeInputValue ] = useState(null);
-    const [confirmedValue, changeConfirmedValue] = useState(null);
+    const [inputValue,changeInputValue] = useState(null);
+    const [confirmedValue,changeConfirmedValue] = useState(null);
+    const [screenWidth, changeScreenWidth] 
+        = useState(Dimensions.get('window').width);
+
+    useEffect(() => {
+        Dimensions.addEventListener('change', 
+        screenWidthHandler);
+        return (() => {
+            Dimensions.removeEventListener('change', screenWidthHandler)
+        })
+    })
 
     const changeInputHandler = (input) => {
         changeInputValue(input);
@@ -57,9 +69,22 @@ const StartScreen = (props) => {
         )
     }
 
+    const screenWidthHandler = () => {
+        changeScreenWidth(Dimensions.get('window').width);
+    }
+
     return(
-        <View style = {styles.StartScreen}>
-            <Card style = {styles.card}>
+        <ScrollView 
+            contentContainerStyle = {styles.StartScreen}
+        >
+            <Card style = {{
+                ...styles.card,
+                marginTop: screenWidth < 600 
+                    ? screenWidth/3 
+                    : screenWidth/32,
+                padding: screenWidth < 600
+                    ? 10 : 0
+            }}>
                 <TextTitle style = {styles.heading}>
                     Welcome To Color Picker!
                 </TextTitle>
@@ -77,7 +102,11 @@ const StartScreen = (props) => {
                         onChangeText    = {changeInputHandler}
                     />
                 </View>
-                <View style = {styles.buttonContainer}>
+                <View style = {{
+                    ...styles.buttonContainer,
+                    marginVertical: screenWidth < 600 
+                    ? 25 : 17.5
+                }}>
                     <View style = {styles.button}>
                         <Button 
                             title   = "RESET"
@@ -129,24 +158,19 @@ const StartScreen = (props) => {
                   />
                 :null
             }
-        </View>
+        </ScrollView>
 )}
 
 const styles = StyleSheet.create({
     StartScreen:{
         backgroundColor: '#eb2f64',
         flex: 1,
-        padding: 0,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center'
     },
     card: {
         backgroundColor: '#FFFFFF',
-        padding: 10,
-        marginTop: -20,
-        marginBottom: 35,
-        marginVertical: 5,
-        marginHorizontal: 20
+        marginHorizontal: 25
     },
     heading:{
         marginTop: 10
@@ -169,8 +193,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginVertical: 25
+        justifyContent: 'space-evenly'
     },
     button: {
         width: 100

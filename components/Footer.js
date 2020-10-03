@@ -5,7 +5,10 @@ import Button from './Button';
 
 const Footer = (props) => {
     return(
-        <View style = {styles.footer}>
+        <View style = {{
+            ...styles.footer,
+            ...props.style
+        }}>
             <View style = {styles.ButtonContainer}>
                 <Button 
                     title   = {props.title}  
