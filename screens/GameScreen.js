@@ -20,7 +20,6 @@ const GameScreen = (props) => {
         = useState(Dimensions.get('window').width);
         
     useEffect(() => {
-        console.log(screenWidth);
         Dimensions.addEventListener('change', 
         screenWidthHandler);
         return (() => {

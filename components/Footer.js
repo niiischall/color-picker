@@ -1,15 +1,35 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View, Dimensions, StyleSheet } from 'react-native';
 
 import Button from './Button';
 
 const Footer = (props) => {
+
+    const [screenHeight, changeScreenHeight] = useState(Dimensions.get('window').height);
+
+    useEffect(() => {
+        Dimensions.addEventListener('change',screenHeightHandler);
+        return () => {
+            Dimensions.removeEventListener('change', changeScreenHeight);
+        }
+    });
+
+    const screenHeightHandler = () => {
+        changeScreenHeight(Dimensions.get('window').height);
+    }
+
+    console.log(screenHeight);
+
     return(
         <View style = {{
             ...styles.footer,
             ...props.style
         }}>
-            <View style = {styles.ButtonContainer}>
+            <View style = {{
+                ...styles.ButtonContainer,
+                width: screenHeight < 450 
+                ? screenHeight/2 : screenHeight/4
+            }}>
                 <Button 
                     title   = {props.title}  
                     onClick = {props.onClick}
@@ -31,9 +51,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    ButtonContainer: {
-        width: '70%'
     },
     button: {
         backgroundColor: '#eb2f64',

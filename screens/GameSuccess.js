@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     View, 
     Image, 
+    ImageBackground,
+    Dimensions,
     StyleSheet 
 } from 'react-native';
 
@@ -11,6 +13,66 @@ import Card from '../components/Card';
 import Footer from '../components/Footer';
 
 const GameSuccess = (props) => {
+    const [screenWidth, changeScreenWidth] 
+    = useState(Dimensions.get('window').width);
+
+    useEffect(() => {
+        Dimensions.addEventListener('change', 
+        screenWidthHandler);
+        return (() => {
+            Dimensions.removeEventListener('change', screenWidthHandler)
+        })
+    })
+
+    const screenWidthHandler = () => {
+        changeScreenWidth(Dimensions.get('window').width);
+    }
+
+    if(screenWidth > 600){
+        const image = { uri : 'https://images.unsplash.com/photo-1515525941374-fe3a8803f768?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'};
+        return(
+            <View style = {styles.FinishScreen}>
+                <ImageBackground 
+                source={image}
+                style ={styles.backgroundImage}                
+                >
+                    <Card style = {{
+                        ...styles.successCard,
+                        height: '40%',
+                        marginBottom: 20
+                    }}>
+                        <View style = {styles.Header}>
+                            <TextTitle>
+                                You Picked the Right Color!
+                            </TextTitle>
+                        </View>
+                        <Card style = {{
+                            ...styles.ColorHeaderCard,
+                            backgroundColor: props.color
+                        }}>
+                            <TextBody 
+                                style = {styles.subheading}
+                            >
+                                {props.color}
+                            </TextBody>
+                        </Card>
+                    </Card>
+                    <Card style = {styles.nextGameCard}>
+                        <TextBody 
+                            style = {styles.nextGameSubheading}
+                        >
+                            Wanna Play Again ?
+                        </TextBody>
+                    </Card>
+                </ImageBackground>
+                <Footer 
+                    title = "RESTART GAME"
+                    onClick = {props.onGameRestart}
+                />
+            </View>
+        )
+    }
+
     return(
         <View style = {styles.FinishScreen}>
             <Card style = {styles.successCard}>
@@ -74,6 +136,14 @@ const styles = StyleSheet.create({
         width: "60%",
         height: '25%',
         marginBottom: 10
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
     ImageContainer: {
         width: 250,
