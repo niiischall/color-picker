@@ -4,6 +4,7 @@ import {
     ScrollView, 
     Alert, 
     Keyboard,
+    ImageBackground,
     TextInput,
     BackHandler, 
     StyleSheet,
@@ -22,6 +23,8 @@ const StartScreen = (props) => {
     const [confirmedValue,changeConfirmedValue] = useState(null);
     const [screenWidth, changeScreenWidth] 
         = useState(Dimensions.get('window').width);
+    const [startBackground, changeBackground] 
+        = useState({ uri : 'https://images.unsplash.com/photo-1511298341002-15d91b5d09b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'});
 
     useEffect(() => {
         Dimensions.addEventListener('change', 
@@ -77,11 +80,23 @@ const StartScreen = (props) => {
         <ScrollView 
             contentContainerStyle = {styles.StartScreen}
         >
+        <ImageBackground 
+            source = {startBackground}
+            style = {{
+                ...styles.backgroundImage,
+                justifyContent: screenWidth < 600 
+                ? 'center'
+                : 'flex-start'
+            }}
+        >
             <Card style = {{
                 ...styles.card,
                 marginTop: screenWidth < 600 
-                    ? screenWidth/3 
+                    ? screenWidth/16
                     : screenWidth/32,
+                marginBottom: screenWidth < 600
+                    ? screenWidth/3
+                    : 0,
                 padding: screenWidth < 600
                     ? 10 : 0
             }}>
@@ -130,6 +145,7 @@ const StartScreen = (props) => {
                     </View>
                 </View>
             </Card>
+            </ImageBackground>
             {
                 confirmedValue
                 ? 
@@ -168,9 +184,17 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+        width: '100%',
+        height: '100%',
+        alignItems: 'center'
+    },
     card: {
         backgroundColor: '#FFFFFF',
-        marginHorizontal: 25
+        marginHorizontal: 25,
+        opacity: 1
     },
     heading:{
         marginTop: 10

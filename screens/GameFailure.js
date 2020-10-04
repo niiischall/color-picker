@@ -15,6 +15,8 @@ import Footer from '../components/Footer';
 const GameFailure = (props) => {
     const [screenWidth, changeScreenWidth] 
         = useState(Dimensions.get('window').width);
+    const [backgroundImage, changeBackgroundImage]
+        = useState({uri : 'https://images.unsplash.com/photo-1513624954087-ca7109c0f710?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'})
 
     useEffect(() => {
         Dimensions.addEventListener('change', 
@@ -28,87 +30,54 @@ const GameFailure = (props) => {
         changeScreenWidth(Dimensions.get('window').width);
     }
 
-    if(screenWidth > 600){
-        const image = { uri : 'https://images.unsplash.com/photo-1513624954087-ca7109c0f710?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'};
-        return(
-            <View style = {styles.FinishScreen}>
-                <ImageBackground 
-                    source={image}
-                    style={styles.backgroundImage}
-                >
-                    <Card style = {{
-                        ...styles.failureCard,
-                        height : '25%',
-                        borderRadius: 30
-                    }}>
-                        <View style = {styles.Header}>
-                            <TextTitle>
-                                Sorry, You Lost.
-                            </TextTitle>
-                            <TextBody style = {styles.subheader}>
-                                The Right Color Was...
-                            </TextBody>
-                        </View>
-                    </Card>
-                    <Card 
-                        style = {{
-                            ...styles.ColorHeader,
-                            backgroundColor: props.color,
-                            marginVertical: 20
-                        }}
-                    >
-                        <TextBody style = {styles.subheading}>
-                            {props.color}
-                        </TextBody>
-                    </Card>    
-                    <Card style = {styles.nextGameCard}>
-                        <TextBody style = {styles.subheader}>
-                            Wanna Play Again ?
-                        </TextBody>
-                    </Card>
-                </ImageBackground>
-                <Footer 
-                    title = "RESTART GAME"
-                    onClick = {props.gameRestart}
-                />
-            </View>
-        )
-    }
-
     return(
         <View style = {styles.FinishScreen}>
-            <Card style = {styles.failureCard}>
-                <View style = {styles.Header}>
-                    <TextTitle>
-                        Sorry, You Lost.
-                    </TextTitle>
-                    <TextBody style = {styles.subheader}>
-                        The Right Color Was...
-                    </TextBody>
-                </View>
-            </Card>
-            <Card 
-                style = {{
-                    ...styles.ColorHeader,
-                    backgroundColor: props.color
-                }}
+            <ImageBackground 
+                source={backgroundImage}
+                style={styles.backgroundImage}
             >
-                <TextBody style = {styles.subheading}>
-                    {props.color}
-                </TextBody>
-            </Card>    
-            <Card style = {styles.ImageContainer}>
-                <Image 
-                    source={require('../assets/failed.jpg')}
-                    style={styles.Image}
-                    resizeMethod="scale"
-                />
-            </Card>
-            <Card style = {styles.nextGameCard}>
-                <TextBody style = {styles.subheader}>
-                    Wanna Play Again ?
-                </TextBody>
-            </Card>
+                <Card style = {{
+                    ...styles.failureCard,
+                    height : screenWidth < 600 
+                    ? '15%' : '25%',
+                    borderRadius: 30
+                }}>
+                    <View style = {styles.Header}>
+                        <TextTitle>
+                            Sorry, You Lost.
+                        </TextTitle>
+                        <TextBody style = {styles.subheader}>
+                            The Right Color Was...
+                        </TextBody>
+                    </View>
+                </Card>
+                <Card 
+                    style = {{
+                        ...styles.ColorHeader,
+                        backgroundColor: props.color,
+                        marginVertical: 20
+                    }}
+                >
+                    <TextBody style = {styles.subheading}>
+                        {props.color}
+                    </TextBody>
+                </Card>
+                {   screenWidth < 600 &&
+                    <Card style = {styles.ImageContainer}>
+                        <Image 
+                            source = 
+                            {require('../assets/failed.jpg')}
+                            style={styles.Image}
+                            resizeMethod="scale"
+                        />
+                    </Card> 
+                } 
+                <Card style = {styles.nextGameCard}>
+                    <TextBody style = {styles.subheader}>
+                        Wanna Play Again ?
+                    </TextBody>
+                </Card>
+            </ImageBackground>
             <Footer 
                 title = "RESTART GAME"
                 onClick = {props.gameRestart}

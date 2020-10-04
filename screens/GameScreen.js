@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
     View, 
-    ScrollView, 
+    ScrollView,
+    ImageBackground, 
     TouchableOpacity, 
     Alert, 
     StyleSheet,
@@ -18,6 +19,8 @@ const GameScreen = (props) => {
     let [ pallete, changePallete ]         = useState([]);
     let [screenWidth, changeScreenWidth] 
         = useState(Dimensions.get('window').width);
+    let [startBackground, changeBackground] 
+        = useState({uri: 'https://images.unsplash.com/photo-1556982255-c17ea0e3ea15?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60'});
         
     useEffect(() => {
         Dimensions.addEventListener('change', 
@@ -102,6 +105,12 @@ const GameScreen = (props) => {
             contentContainerStyle = {styles.gameScreenContainer}
             style = {styles.gameScreen}
         >
+            <ImageBackground
+                source = {startBackground}
+                style = {{
+                    ...styles.backgroundImage
+                }}
+            >
             <Card style = {{
                 ...styles.gameScreenCard,
                 height: screenWidth > 600 
@@ -154,6 +163,7 @@ const GameScreen = (props) => {
                 }
                 </ScrollView>
             </View>
+            </ImageBackground>
             <Footer 
                 title = "RESET GAME"
                 onClick = {resetGame}
@@ -165,6 +175,13 @@ const GameScreen = (props) => {
 const styles = StyleSheet.create({
     gameScreenContainer:{
         flex: 1,
+        alignItems: 'center'
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+        width: '100%',
+        height: '100%',
         alignItems: 'center'
     },
     gameScreen: {
@@ -201,8 +218,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 25,
-        paddingBottom: 60,
-        backgroundColor: "#eee"
+        paddingBottom: 60
     }, 
     card: {
         borderColor: '#eee',

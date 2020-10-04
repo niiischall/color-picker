@@ -15,6 +15,8 @@ import Footer from '../components/Footer';
 const GameSuccess = (props) => {
     const [screenWidth, changeScreenWidth] 
     = useState(Dimensions.get('window').width);
+    const [backgroundImage, changeBackgroundImage]
+    = useState({uri : 'https://images.unsplash.com/photo-1515525941374-fe3a8803f768?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' })
 
     useEffect(() => {
         Dimensions.addEventListener('change', 
@@ -28,81 +30,50 @@ const GameSuccess = (props) => {
         changeScreenWidth(Dimensions.get('window').width);
     }
 
-    if(screenWidth > 600){
-        const image = { uri : 'https://images.unsplash.com/photo-1515525941374-fe3a8803f768?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'};
-        return(
-            <View style = {styles.FinishScreen}>
-                <ImageBackground 
-                source={image}
-                style ={styles.backgroundImage}                
-                >
-                    <Card style = {{
-                        ...styles.successCard,
-                        height: '40%',
-                        marginBottom: 20
-                    }}>
-                        <View style = {styles.Header}>
-                            <TextTitle>
-                                You Picked the Right Color!
-                            </TextTitle>
-                        </View>
-                        <Card style = {{
-                            ...styles.ColorHeaderCard,
-                            backgroundColor: props.color
-                        }}>
-                            <TextBody 
-                                style = {styles.subheading}
-                            >
-                                {props.color}
-                            </TextBody>
-                        </Card>
-                    </Card>
-                    <Card style = {styles.nextGameCard}>
-                        <TextBody 
-                            style = {styles.nextGameSubheading}
-                        >
-                            Wanna Play Again ?
-                        </TextBody>
-                    </Card>
-                </ImageBackground>
-                <Footer 
-                    title = "RESTART GAME"
-                    onClick = {props.onGameRestart}
-                />
-            </View>
-        )
-    }
-
     return(
         <View style = {styles.FinishScreen}>
-            <Card style = {styles.successCard}>
-                <View style = {styles.Header}>
-                    <TextTitle>
-                        You Picked the Right Color!
-                    </TextTitle>
-                </View>
+            <ImageBackground 
+                source={backgroundImage}
+                style ={styles.backgroundImage}                
+            >
                 <Card style = {{
-                    ...styles.ColorHeaderCard,
-                    backgroundColor: props.color
+                    ...styles.successCard,
+                    height: '25%',
+                    marginBottom: 20
                 }}>
-                    <TextBody style = {styles.subheading}>
-                        {props.color}
+                    <View style = {styles.Header}>
+                        <TextTitle>
+                            You Picked the Right Color!
+                        </TextTitle>
+                    </View>
+                    <Card style = {{
+                        ...styles.ColorHeaderCard,
+                        backgroundColor: props.color
+                    }}>
+                        <TextBody 
+                            style = {styles.subheading}
+                        >
+                            {props.color}
+                        </TextBody>
+                    </Card>
+                </Card>
+                {   screenWidth < 600 &&
+                    <Card style = {styles.ImageContainer}>
+                        <Image 
+                            source = {require('../assets/hooray.jpg')}
+                            style  = {styles.Image}
+                            resizeMethod = "scale"
+                        />
+                    </Card>
+                }
+                <Card style = {styles.nextGameCard}>
+                    <TextBody 
+                        style = {styles.nextGameSubheading}
+                    >
+                        Wanna Play Again ?
                     </TextBody>
                 </Card>
-            </Card>
-
-            <Card style = {styles.ImageContainer}>
-                <Image 
-                    source = {require('../assets/hooray.jpg')}
-                    style  = {styles.Image}
-                    resizeMethod = "scale"
-                />
-            </Card>
-            <Card style = {styles.nextGameCard}>
-                <TextBody style = {styles.nextGameSubheading}>
-                    Wanna Play Again ?
-                </TextBody>
-            </Card>
+            </ImageBackground>
             <Footer 
                 title = "RESTART GAME"
                 onClick = {props.onGameRestart}
