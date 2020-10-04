@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
-    View, 
+    View,
+    Platform, 
     StyleSheet 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,10 +14,17 @@ const Header = (props) => {
             <Ionicons 
                 name = "ios-color-palette"
                 size = {38}
-                color = "#eb2f64"
+                color = {
+                    Platform.OS === 'android' 
+                    ? "#FFFFFF" : "#eb2f64"
+                }
             />
             <TextTitle 
-                style = {styles.headline}
+                style = {{
+                    ...styles.headline,
+                    color: Platform.OS === 'android' 
+                        ? "#FFFFFF" : "#eb2f64"
+                }}
             >
                 Color Picker
             </TextTitle>
@@ -29,8 +37,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         padding: 20,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: Platform.OS === 'android' 
+            ? "#eb2f64" : "#FFFFFF",
         justifyContent: 'center',
+        borderBottomWidth: 3,
+        borderBottomColor: Platform.OS === 'android' 
+        ? "#FFFFFF" : "#eb2f64", 
         alignItems: 'center'
     },
     headline: {
